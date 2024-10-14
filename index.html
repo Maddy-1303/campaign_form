@@ -248,12 +248,14 @@
             <div id="submit-msg" style="display: none;margin-top: 2rem;">
                 <div id="success-message">
                    
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#36fa00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#36fa00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>
                     <div>
                     Form submitted successfully!
                     </div>
-                    <div style="color: black;"><a href="https://mptoolsmonitor.azurewebsites.net/tasks" target="_blank" style="color: blue;text-decoration: underline;">Click here</a> to check Task</div>
-                </div>
+                    <div id="task-link-container" style="color: black;">
+                        <a id="task-link" href="https://mptoolsmonitor.azurewebsites.net/tasks" target="_blank" style="color: blue; text-decoration: underline;">Click here</a> to check Task
+                    </div>              
+                  </div>
             </div>
         </div>
     </div>
@@ -343,7 +345,12 @@
         return response.json(); 
     })
     .then(data => {
-        
+        const taskId = data;
+
+
+        const taskLinkElement = document.getElementById('task-link');
+        taskLinkElement.href = `https://mptoolsmonitor.azurewebsites.net/task/${taskId}`;
+
         document.getElementById('campaign-form').style.display = 'none';
         document.getElementById('submit-msg').style.display = 'block';
     })
