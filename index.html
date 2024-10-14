@@ -221,6 +221,9 @@
     
                         <label class="form-label form-required" for="date-time">Date Time</label>
                         <input class="form-input" type="datetime-local" style="padding:12px;" id="date-time" name="date_time" value="" min="2024-10-01T00:00" max="2025-12-31T23:59">
+                        
+                        <label class="form-label form-required" for="countries">Countries</label>
+                        <input class="form-input" style="padding:12px;" type="text" id="countries" name="countries" placeholder="">
                     
                         <label class="form-label form-required" for="apikey">API Keys</label>
                         <div class="form-input">
@@ -314,7 +317,7 @@
                     date_time: formattedDateTime,
                     api_key: document.getElementById('apikey').value,
                     included_ds: Array.from(document.getElementById('servers').selectedOptions).map(option => option.value).join(','),
-                    countries: ""
+                    countries: document.getElementById('countries').value
                 };
 
             
