@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/css/multi-select-tag.css">
+    <title>Campaign</title>
+    <style>
+         #loading-spinner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: #ff6d5a;
+            display: block; 
+        }
+
+        #campaigns-loading-spinner {
+            position: fixed;
+            top: 95%;
+            left: 40%;
+            font-size: 24px;
+            color: #ff6d5a;
+            display: none; 
+        }
+        
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Open Sans, sans-serif;
+            font-weight: 400;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            background-color: #fbfcfe;
+        }
+
+        .container1 {
+            margin: auto;
+            padding-top: 24px;
+            width: 448px;
+        }
+
+       
+        .center {
+            text-align: center;
+        }
+
+        .card {
+            padding: 24px;
+            background-color: white;
+            border: 1px solid #dbdfe7;
+            border-radius: 8px;
+            box-shadow: 0px 4px 16px 0px #634dff0f;
+            margin-bottom: 16px;
+        }
+
+        .form-header h1 {
+            color: #525356;
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        .inputs-wrapper {
+            padding-top: 24px;
+            padding-bottom: 24px;
+        }
+
+        form label {
+            display: block;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+            color: #555555;
+            padding-bottom: 6px;
+        }
+
+        form .form-input {
+            border: 1px solid #dbdfe7;
+            border-radius: 6px;
+            width: 100%;
+            font-size: 14px;
+            color: #71747A;
+            font-weight: 400;
+        }
+
+        form textarea:focus,
+        form input:focus {
+            outline: none;
+            border-color: rgb(90, 76, 194);
+        }
+
+        .select-input {
+            border: 1px solid #dbdfe7;
+            border-radius: 6px;
+        }
+
+        .select-input:focus-within {
+            border: 1px solid rgb(90, 76, 194);
+        }
+
+        form select {
+            outline: transparent;
+            border: none;
+            border-radius: 6px;
+            width: 100%;
+            font-size: 14px;
+            color: #71747A;
+            font-weight: 400;
+            background-color: white;
+            padding: 12px;
+            border-right: 12px solid transparent;
+        }
+
+        #submit-btn {
+            width: 100%;
+            height: 48px;
+            padding: 12px;
+            border-radius: 6px;
+            border: 0;
+            font-size: 14px;
+            font-weight: 600;
+            background-color: #ff6d5a;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        #submit-btn:hover {
+            opacity: 0.7;
+        }
+
+        .error-hidden {
+            display: block;
+            color: #ea1f30;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 400;
+            visibility: hidden;
+            padding-top: 6px;
+            padding-bottom: 9px;
+        }
+
+        .error-show {
+            visibility: visible;
+        }
+
+        .multiselect {
+            padding-left: 6px;
+            padding-right: 6px;
+        }
+
+        .multiselect-option {
+            padding-top: 6px;
+            display: flex;
+        }
+
+        .multiselect-option label {
+            padding-left: 12px;
+            color: #7e8186;
+            font-weight: 400;
+            cursor: pointer;
+        }
+
+        input[type='checkbox'] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        label.form-required::after {
+            content: ' *';
+            color: #ff6d5a;
+        }
+        #success-message {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            color: green;
+            font-size: 20px;
+            text-align: center;
+            padding: 50px;
+            background-color: white;
+            border: 1px solid #dbdfe7;
+            border-radius: 8px;
+            box-shadow: 0px 4px 16px 0px #634dff0f;
+            margin-bottom: 16px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loading-spinner">Loading...</div>
+    <div id="page-content" style="display: none;">
+        <div class="container1">
+            <form class="card" id="campaign-form">
+                <div class="form-header">
+                    <h1 class="center">Campaign</h1>
+                </div>
+    
+                <div class="inputs-wrapper">
+                    <div class="form-group">
+                        <label class="form-label form-required" for="campaign-name">Campaign Name</label>
+                        <input class="form-input form-required" style="padding:12px;" type="text" id="campaign-name" name="campaign_name" placeholder="">
+                        <p class="error-field-campaign-name error-hidden">This field is required</p>
+    
+                        <label class="form-label form-required" for="campaign-no">Campaign No</label>
+                        <input class="form-input" style="padding:12px;" type="text" id="campaign-no" name="campaign_no" placeholder="">
+    
+                        <label class="form-label form-required" for="batch-size">Batch Size</label>
+                        <input class="form-input" style="padding:12px;" type="text" id="batch-size" name="batch_size" placeholder="">
+    
+                        <label class="form-label form-required" for="date-time">Date Time</label>
+                        <input class="form-input" type="datetime-local" style="padding:12px;" id="date-time" name="date_time" value="" min="2024-10-01T00:00" max="2025-12-31T23:59">
+                    
+                        <label class="form-label form-required" for="apikey">API Keys</label>
+                        <div class="form-input">
+                            <select name="apikey" id="apikey">
+                                <option value="">Select API Key</option>
+                            </select>
+                        </div>
+    
+                        <label class="form-label form-required" for="delivery-servers">Delivery Servers</label>
+                        <div class="multi-select-wrapper">
+                            <select name="delivery_servers" id="servers" multiple>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+    
+                <button id="submit-btn" type="submit">Submit form</button>
+            </form>
+            <div id="submit-msg" style="display: none;margin-top: 2rem;">
+                <div id="success-message">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#36fa00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>
+                    Form submitted successfully!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const fetchDeliveryServers = () => {
+            return fetch('https://mptool.azurewebsites.net/mailwizz/get_delivery_servers')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch delivery servers');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const serverDropdown = document.getElementById('servers');
+                    data.forEach(server => {
+                        let option = document.createElement('option');
+                        option.value = server.id;
+                        option.textContent = `${server.id} (${server.name})`;
+                        serverDropdown.appendChild(option);
+                    });
+                    new MultiSelectTag('servers');
+
+                });
+        };
+
+        const fetchAPIKeys = () => {
+            return fetch('https://mptool.azurewebsites.net/mailwizz/get_client_details')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch client details');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const apiDropdown = document.getElementById('apikey');
+                    data.forEach(client => {
+                        let option = document.createElement('option');
+                        option.value = client.API;
+                        option.textContent = client['Customer Name'];
+                        apiDropdown.appendChild(option);
+                        
+
+                    });
+                });
+        };
+
+        Promise.all([fetchDeliveryServers(), fetchAPIKeys()])
+            .then(() => {
+                document.getElementById('loading-spinner').style.display = 'none';
+                document.getElementById('page-content').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+
+          
+          
+            const handleFormSubmit = (event) => {
+             event.preventDefault(); 
+             const dateTimeInput = document.getElementById('date-time').value;
+             const date = new Date(dateTimeInput);
+             const formattedDateTime = `${('0' + date.getDate()).slice(-2)}/${('0' + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} ${('0' + (date.getHours() % 12 || 12)).slice(-2)}:${('0' + date.getMinutes()).slice(-2)} ${(date.getHours() >= 12 ? 'PM' : 'AM')}`;
+                const formData = {
+                    campaign_name: document.getElementById('campaign-name').value,
+                    campaign_no: parseInt(document.getElementById('campaign-no').value, 10),
+                    batch_size : parseInt(document.getElementById('batch-size').value, 10),
+                    date_time: formattedDateTime,
+                    api_key: document.getElementById('apikey').value,
+                    included_ds: Array.from(document.getElementById('servers').selectedOptions).map(option => option.value).join(','),
+                    countries: ""
+                };
+
+            
+
+    fetch('https://mptool.azurewebsites.net/mailwizz/create_list', { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify(formData) 
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Form submission failed');
+        }
+        return response.json(); 
+    })
+    .then(data => {
+        
+        document.getElementById('campaign-form').style.display = 'none';
+        document.getElementById('submit-msg').style.display = 'block';
+    })
+    .catch(error => {
+        console.error('Error submitting form:', error);
+        alert('Failed to submit the form.');
+    });
+  };
+          document.getElementById('campaign-form').addEventListener('submit', handleFormSubmit);
+
+    </script>
+     <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/js/multi-select-tag.js"></script
+
+</body>
+</html>
