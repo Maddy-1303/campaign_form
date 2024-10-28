@@ -274,7 +274,7 @@
                     data.forEach(server => {
                         let option = document.createElement('option');
                         option.value = server.id;
-                        option.textContent = `${server.id} (${server.name})`;
+                        option.textContent = `${server.id} ${server.name}`;
                         serverDropdown.appendChild(option);
                     });
                     new MultiSelectTag('servers');
@@ -294,8 +294,8 @@
                     const apiDropdown = document.getElementById('apikey');
                     data.forEach(client => {
                         let option = document.createElement('option');
-                        option.value = client.API;
-                        option.textContent = client['Customer Name'];
+                        option.value = client.api_key;
+                        option.textContent = client['client_name'];
                         apiDropdown.appendChild(option);
                         
 
